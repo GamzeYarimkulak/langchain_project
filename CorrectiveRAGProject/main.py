@@ -1,7 +1,11 @@
 from dotenv import load_dotenv
-
 load_dotenv()
 
+from graph.graph import app
+
+
 if __name__ == "__main__":
-    print("Corrective RAG Project")
+    print(app.invoke({"question": "?", "attempts": 0}))
+
+
     

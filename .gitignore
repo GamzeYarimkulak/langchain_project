@@ -51,6 +51,7 @@ Thumbs.db
 
 # Chroma DB
 chroma_store/
+.chroma/
 *.sqlite3
 *.bin
 
