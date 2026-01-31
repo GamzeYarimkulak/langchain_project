@@ -1,0 +1,7 @@
+# Ortam ve gizlilik
+.env
+.venv
+venv/
+__pycache__/
+*.pyc
+.chroma/

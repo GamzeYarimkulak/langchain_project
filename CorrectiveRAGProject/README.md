@@ -81,6 +81,17 @@ python main.py
 
 Bu komut, örnek bir soru ile sistemi test eder.
 
+### Web arayüzü
+
+Soruyu yazıp süreci (belge mi, web mi kullanıldığı) ve cevabı görmek için:
+
+```bash
+pip install fastapi uvicorn
+python serve.py
+```
+
+Tarayıcıda http://localhost:8000 adresine gidin. Sorunuzu yazıp gönderin; sayfada önce süreç adımları (soru analizi, belge arşivi / web araması, cevap hazırlama) listelenir, en altta cevap metni görünür.
+
 ### Özelleştirilmiş Kullanım
 
 `main.py` dosyasını düzenleyerek farklı sorular sorabilirsiniz:

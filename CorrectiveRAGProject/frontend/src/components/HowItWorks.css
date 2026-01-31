@@ -1,0 +1,138 @@
+.how {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(26, 35, 50, 0.5) 50%, transparent 100%);
+}
+
+.how-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.how .section-title,
+.how .section-subtitle {
+  text-align: center;
+}
+
+.how .section-subtitle {
+  margin-bottom: 3rem;
+}
+
+.how-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.how-step {
+  position: relative;
+  flex: 1 1 180px;
+  min-width: 160px;
+  max-width: 220px;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.how-step:hover {
+  border-color: rgba(0, 212, 170, 0.3);
+  transform: translateY(-2px);
+}
+
+.how-step-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+  margin-bottom: 1rem;
+}
+
+.how-step-content {
+  min-height: 80px;
+}
+
+.how-step-title {
+  margin: 0 0 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.how-step-desc {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.how-step-bar {
+  position: relative;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.how-step-bar-fill {
+  height: 100%;
+  background: var(--gradient-teal);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.how-step-bar-label {
+  position: absolute;
+  right: 0;
+  top: -1.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+}
+
+.how-step-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  background: rgba(168, 85, 247, 0.2);
+  color: #c4b5fd;
+}
+
+.how-step-connector {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .how-steps {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .how-step {
+    max-width: none;
+    flex: 1;
+  }
+
+  .how-step-connector {
+    display: block;
+    position: absolute;
+    right: -0.75rem;
+    top: 50%;
+    width: 1rem;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .how-step:last-child .how-step-connector {
+    display: none;
+  }
+}
