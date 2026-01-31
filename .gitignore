@@ -58,3 +58,8 @@ chroma_store/
 # Logs
 *.log
 
+node_modules/
+dist/
+.vite/
+*.log
+.env
