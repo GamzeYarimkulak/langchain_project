@@ -29,11 +29,11 @@ React ile hazırlanan arayüzde soru yazıldığında süreç adımları ve ceva
 
 **Belge arşivinden gelen cevap (Chroma):**
 
-![Web arayüzü - belgelerden gelen cevap](./webarayüzbelgelerdengelencevap.png)
+![Web arayüzü - belgelerden gelen cevap](./görseller/webarayüzbelgelerdengelencevap.png)
 
 **Web aramasından gelen cevap (Tavily):**
 
-![Web arayüzü - Tavily ile gelen cevap](./webarayüzweb-tavilydengelencevap.png)
+![Web arayüzü - Tavily ile gelen cevap](./görseller/webarayüzweb-tavilydengelencevap.png)
 
 ### Backend / terminal çıktıları
 
@@ -43,7 +43,7 @@ React ile hazırlanan arayüzde soru yazıldığında süreç adımları ve ceva
 
 **Web'den gelen cevap örneği:**
 
-![Backend çıktısı - web'den gelen cevap](./backend_webden_cevap.png)
+![Backend çıktısı - web'den gelen cevap](./görseller/backend_kod_ciktisi_webdengelencevap.png)
 
 ### Ekran görüntüleri
 
@@ -53,11 +53,11 @@ React ile hazırlanan arayüzde soru yazıldığında süreç adımları ve ceva
 
 **Demo ekranı:**
 
-![Demo ekranı](./ekran_demo.png)
+![Demo ekranı](./görseller/Ekran%20görüntüsü%202026-01-31%20173149.png)
 
 **Cevap ve kaynaklar:**
 
-![Cevap ve kaynaklar](./ekran_cevap_kaynak.png)
+![Cevap ve kaynaklar](./görseller/Ekran%20görüntüsü%202026-01-31%20173157.png)
 
 ## Proje Yapısı
 
