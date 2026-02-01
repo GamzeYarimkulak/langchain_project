@@ -77,7 +77,7 @@ ReAct agent pattern'i ile akıllı arama aracı. LangGraph kullanarak web aramas
 ---
 
 ### 8. CorrectiveRAGProject ⭐
-Gelişmiş RAG sistemi. Self-reflection mekanizması ekleyen, kendi kendini düzelten soru-cevap sistemi.
+Gelişmiş RAG sistemi. Self-reflection mekanizması ekleyen, kendi kendini düzelten soru-cevap sistemi. Web arayüzü (React) ve demo içerir.
 
 **Öğrenilenler:**
 - LangGraph ile state machine
@@ -85,6 +85,8 @@ Gelişmiş RAG sistemi. Self-reflection mekanizması ekleyen, kendi kendini düz
 - Multi-step RAG
 - Self-correction pattern
 - Quality assurance katmanları
+
+📷 **Çıktılar ve görseller:** [CorrectiveRAGProject/README.md](CorrectiveRAGProject/README.md#çıktılar-ve-görseller) — workflow grafiği, web arayüzü ve terminal çıktıları.
 
 ---
 

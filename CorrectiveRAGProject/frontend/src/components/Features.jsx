@@ -35,6 +35,9 @@ export default function Features() {
           <h2 className="features-title">
             <span className="features-title-accent">Özellikler</span>
           </h2>
+          <p className="features-subtitle">
+            Backend’de çalışan RAG pipeline’ına karşılık gelen özellikler.
+          </p>
         </div>
 
         <div className="features-grid">

@@ -15,6 +15,50 @@ CorrectiveRAGProject, geleneksel RAG sistemlerinin ötesine geçer. Sistem, soru
 - **Self-Correction**: Yetersiz cevaplar otomatik olarak düzeltilir
 - **State Machine**: LangGraph ile karmaşık workflow yönetimi
 
+## Çıktılar ve Görseller
+
+### Workflow grafiği
+
+LangGraph ile oluşturulan pipeline akışı:
+
+![Workflow grafiği](./graph.png)
+
+### Web arayüzü
+
+React ile hazırlanan arayüzde soru yazıldığında süreç adımları ve cevap gösterilir.
+
+**Belge arşivinden gelen cevap (Chroma):**
+
+![Web arayüzü - belgelerden gelen cevap](./webarayüzbelgelerdengelencevap.png)
+
+**Web aramasından gelen cevap (Tavily):**
+
+![Web arayüzü - Tavily ile gelen cevap](./webarayüzweb-tavilydengelencevap.png)
+
+### Backend / terminal çıktıları
+
+**Belgelerden gelen cevap örneği:**
+
+![Backend çıktısı - belgelerden gelen cevap](./görseller/backend_kodçıktısıs_belgelerden_gelen%20cevap.png)
+
+**Web'den gelen cevap örneği:**
+
+![Backend çıktısı - web'den gelen cevap](./backend_webden_cevap.png)
+
+### Ekran görüntüleri
+
+**Süreç adımları:**
+
+![Süreç adımları](./görseller/Ekran%20görüntüsü%202026-01-31%20173048.png)
+
+**Demo ekranı:**
+
+![Demo ekranı](./ekran_demo.png)
+
+**Cevap ve kaynaklar:**
+
+![Cevap ve kaynaklar](./ekran_cevap_kaynak.png)
+
 ## Proje Yapısı
 
 ```
