@@ -1,336 +1,101 @@
-# CorrectiveRAGProject
+CorrectiveRAGProject
 
-Gelişmiş RAG (Retrieval Augmented Generation) sistemi. Bu proje, LangGraph kullanarak self-reflection mekanizması ekleyen, kendi kendini düzelten bir soru-cevap sistemi oluşturur.
+CorrectiveRAGProject, klasik Retrieval Augmented Generation (RAG) yaklaşımının ötesine geçerek karar veren, kendini denetleyen ve gerektiğinde kendini düzelten bir soru–cevap sistemi kurmayı amaçlar.
 
-## Genel Bakış
+Bu projede LLM, yalnızca cevap üreten bir bileşen değil; sistemin farklı aşamalarında değerlendirme yapan bir karar mekanizması olarak kullanılır. Akış, LangGraph ile state-based bir yapı halinde modellenmiştir.
 
-CorrectiveRAGProject, geleneksel RAG sistemlerinin ötesine geçer. Sistem, soruları otomatik olarak yönlendirir, dokümanları değerlendirir, web araması yapar ve üretilen cevapları çoklu katmanlarda kontrol eder. Eğer cevap yetersizse, sistem otomatik olarak kendini düzeltir.
+Genel Bakış
 
-## Temel Özellikler
+Sistem, gelen bir soruyu uçtan uca şu prensiple ele alır:
 
-- **Akıllı Yönlendirme**: Sorular otomatik olarak vectorstore veya web search'e yönlendirilir
-- **Doküman Değerlendirme**: Getirilen dokümanların soruyla ilgili olup olmadığı kontrol edilir
-- **Web Arama Entegrasyonu**: Vectorstore'da yeterli bilgi yoksa otomatik web araması yapılır
-- **Çoklu Kalite Kontrolü**: Hallucination check, answer quality check gibi katmanlar
-- **Self-Correction**: Yetersiz cevaplar otomatik olarak düzeltilir
-- **State Machine**: LangGraph ile karmaşık workflow yönetimi
+“En uygun kaynağı seç → bağlamı topla → cevap üret → cevabı denetle → gerekirse geri dön.”
 
-## Çıktılar ve Görseller
+Bu yaklaşım, lineer RAG pipeline’larının aksine kontrollü ve döngüsel bir iş akışı oluşturur.
 
-### Workflow grafiği
+Temel Özellikler
 
-LangGraph ile oluşturulan pipeline akışı:
+Query Routing
+Soru, vector store veya web search arasında otomatik olarak yönlendirilir.
 
+Document Relevance Grading
+Retriever’dan gelen dokümanlar, soruyla gerçekten ilgili olup olmadıklarına göre filtrelenir.
+
+Web Search Fallback
+Vector store yeterli değilse sistem otomatik olarak web aramasına yönelir.
+
+Controlled Generation
+LLM yalnızca verilen bağlama dayanarak cevap üretir.
+
+Self-Check & Correction Loop
+Üretilen cevap:
+
+bağlama dayanıyor mu?
+
+soruyu gerçekten yanıtlıyor mu?
+sorularıyla kontrol edilir. Gerekirse sistem geri dönerek kendini düzeltir.
+
+State-Based Workflow
+Tüm akış LangGraph ile state machine olarak modellenmiştir.
+
+Workflow Grafiği
 ![Workflow grafiği](./graph.png)
 
-### Web arayüzü
+Aşağıdaki diyagram, sistemin karar odaklı akışını özetler:
 
-React ile hazırlanan arayüzde soru yazıldığında süreç adımları ve cevap gösterilir.
+Demo & Arayüz
 
-**Belge arşivinden gelen cevap (Chroma):**
+Projede, sistemin davranışını gözlemleyebilmek için basit bir web arayüzü de bulunmaktadır.
 
+Vector store üzerinden gelen cevap örneği:
 ![Web arayüzü - belgelerden gelen cevap](./görseller/webarayüzbelgelerdengelencevap.png)
-
-**Web aramasından gelen cevap (Tavily):**
-
-![Web arayüzü - Tavily ile gelen cevap](./görseller/webarayüzweb-tavilydengelencevap.png)
-
-### Backend / terminal çıktıları
-
-**Belgelerden gelen cevap örneği:**
-
 ![Backend çıktısı - belgelerden gelen cevap](./görseller/backend_kodçıktısıs_belgelerden_gelen%20cevap.png)
 
-**Web'den gelen cevap örneği:**
-
+Web search fallback ile gelen cevap örneği:
+![Web arayüzü - Tavily ile gelen cevap](./görseller/webarayüzweb-tavilydengelencevap.png)
 ![Backend çıktısı - web'den gelen cevap](./görseller/backend_kod_ciktisi_webdengelencevap.png)
 
-### Ekran görüntüleri
-
-**Süreç adımları:**
-
-![Süreç adımları](./görseller/Ekran%20görüntüsü%202026-01-31%20173048.png)
-
-**Demo ekranı:**
-
-![Demo ekranı](./görseller/Ekran%20görüntüsü%202026-01-31%20173149.png)
-
-**Cevap ve kaynaklar:**
-
-![Cevap ve kaynaklar](./görseller/Ekran%20görüntüsü%202026-01-31%20173157.png)
-
-## Proje Yapısı
-
-```
-CorrectiveRAGProject/
-├── main.py                 # Ana uygulama giriş noktası
-├── ingestion.py            # Veri yükleme ve vectorstore oluşturma
-├── graph/
-│   ├── graph.py           # Ana workflow grafiği
-│   ├── state.py           # State tanımlamaları
-│   ├── node_constants.py  # Node isimleri
-│   ├── nodes/             # İş mantığı node'ları
-│   │   ├── generate.py
-│   │   ├── retrieve.py
-│   │   ├── grade_documents.py
-│   │   └── web_search.py
-│   └── chains/            # LLM chain'leri
-│       ├── router.py
-│       ├── retrieval_grader.py
-│       ├── hallucination_grader.py
-│       ├── answer_grader.py
-│       └── generation.py
-├── graph.png              # Workflow görselleştirmesi
-└── requirements.txt
-```
-
-## Kurulum
-
-### 1. Bağımlılıkları Yükleyin
-
-```bash
+Hızlı Başlangıç (Quick Run)
+1. Bağımlılıkları Yükleyin
 pip install -r requirements.txt
-```
 
-### 2. Ortam Değişkenlerini Ayarlayın
+2. Ortam Değişkenleri
 
-`.env` dosyası oluşturun:
+.env dosyası oluşturun:
 
-```
 OPENAI_API_KEY=your_openai_api_key
 TAVILY_API_KEY=your_tavily_api_key
-```
 
-### 3. Vectorstore'u Oluşturun
+3. Vector Store Oluşturma
 
-İlk çalıştırmada vectorstore'u oluşturmanız gerekir:
+İlk çalıştırmada belge indeksini oluşturun:
 
-```bash
 python ingestion.py
-```
 
-Bu komut:
-- 3 farklı web sayfasından doküman yükler
-- Dokümanları chunk'lara böler
-- Chroma vectorstore oluşturur
-- `.chroma` klasörüne kalıcı olarak kaydeder
-
-## Kullanım
-
-### Temel Kullanım
-
-```bash
+4. Sistemi Çalıştırma
 python main.py
-```
 
-Bu komut, örnek bir soru ile sistemi test eder.
+Proje Yapısı
+CorrectiveRAGProject/
+├── main.py          # Uygulama giriş noktası
+├── ingestion.py     # Doküman yükleme ve vector store oluşturma
+├── graph/
+│   ├── graph.py     # LangGraph workflow tanımı
+│   ├── state.py     # State yapısı
+│   ├── nodes/       # Retrieve, generate, grade, web search adımları
+│   └── chains/      # Router ve grader chain'leri
+├── graph.png        # Workflow diyagramı
+└── requirements.txt
 
-### Web arayüzü
+Notlar
 
-Soruyu yazıp süreci (belge mi, web mi kullanıldığı) ve cevabı görmek için:
+Proje bağımsız çalışır.
 
-```bash
-pip install fastapi uvicorn
-python serve.py
-```
+Döngüsel yapı bounded retries ile kontrol altındadır.
 
-Tarayıcıda http://localhost:8000 adresine gidin. Sorunuzu yazıp gönderin; sayfada önce süreç adımları (soru analizi, belge arşivi / web araması, cevap hazırlama) listelenir, en altta cevap metni görünür.
+Amaç “en uzun cevabı” değil, en güvenilir cevabı üretmektir.
 
-### Özelleştirilmiş Kullanım
+Detaylı mimari anlatım Medium yazısında ele alınmıştır.
 
-`main.py` dosyasını düzenleyerek farklı sorular sorabilirsiniz:
+Lisans
 
-```python
-result = app.invoke(input={"question": "Your question here"})
-print(result)
-```
-
-## Workflow Açıklaması
-
-### 1. Query Analysis (Soru Analizi)
-
-Sistem, gelen soruyu analiz eder ve en uygun yolu seçer:
-
-- **Vectorstore'a yönlendir**: Soru, index'teki konularla ilgiliyse (agents, prompt engineering, adversarial attacks)
-- **Web Search'e yönlendir**: Soru, index dışındaysa
-
-### 2. Retrieve (Doküman Getirme)
-
-Vectorstore'dan semantic search yaparak ilgili dokümanlar getirilir.
-
-### 3. Grade Documents (Doküman Değerlendirme)
-
-Getirilen dokümanların soruyla ilgili olup olmadığı kontrol edilir:
-
-- Her doküman için LLM ile değerlendirme yapılır
-- İlgisiz dokümanlar filtrelenir
-- Eğer hiç ilgili doküman yoksa → Web search tetiklenir
-
-### 4. Generate (Cevap Üretme)
-
-Context ve question birleştirilerek LLM ile cevap üretilir.
-
-### 5. Hallucination Check (Halüsinasyon Kontrolü)
-
-Üretilen cevabın dokümanlara dayalı olup olmadığı kontrol edilir:
-
-- Cevap dokümanlara dayalı değilse → Re-write question → Retrieve (döngü)
-
-### 6. Answer Quality Check (Cevap Kalite Kontrolü)
-
-Cevabın soruyu gerçekten cevaplayıp cevaplamadığı kontrol edilir:
-
-- Cevap yetersizse → Re-write question → Retrieve (döngü)
-- Cevap yeterliyse → END
-
-### 7. Web Search (Web Arama)
-
-Gerekli durumlarda Tavily API ile web'de arama yapılır ve sonuçlar dokümanlara eklenir.
-
-## Bileşenler
-
-### State Yönetimi
-
-`GraphState` sınıfı, workflow boyunca taşınan verileri tanımlar:
-
-```python
-class GraphState(TypedDict):
-    question: str          # Kullanıcı sorusu
-    generation: str        # LLM tarafından üretilen cevap
-    web_search: bool      # Web araması yapılması gerekip gerekmediği
-    documents: List[str]   # İlgili dokümanlar
-```
-
-### Node'lar
-
-#### Retrieve Node
-Vectorstore'dan semantic search yapar ve ilgili dokümanları getirir.
-
-#### Grade Documents Node
-Her dokümanı değerlendirir ve ilgili olanları filtreler. İlgili doküman yoksa web search'i tetikler.
-
-#### Generate Node
-Context ve question'ı birleştirerek LLM ile cevap üretir.
-
-#### Web Search Node
-Tavily API kullanarak web'de arama yapar ve sonuçları dokümanlara ekler.
-
-### Chain'ler
-
-#### Router Chain
-Soruyu analiz edip vectorstore veya web search'e yönlendirir. Structured output kullanır.
-
-#### Retrieval Grader Chain
-Bir dokümanın soruyla ilgili olup olmadığını değerlendirir.
-
-#### Hallucination Grader Chain
-Üretilen cevabın dokümanlara dayalı olup olmadığını kontrol eder.
-
-#### Answer Grader Chain
-Cevabın soruyu gerçekten cevaplayıp cevaplamadığını kontrol eder.
-
-#### Generation Chain
-LangChain Hub'dan RAG prompt'u çekerek cevap üretir.
-
-## Örnek Senaryolar
-
-### Senaryo 1: Vectorstore'da Bilgi Var
-
-1. Soru gelir → Query Analysis → Vectorstore'a yönlendirilir
-2. Retrieve → İlgili dokümanlar getirilir
-3. Grade Documents → Dokümanlar değerlendirilir
-4. Generate → Cevap üretilir
-5. Hallucination Check → Cevap kontrol edilir
-6. Answer Quality Check → Cevap yeterliyse END
-
-### Senaryo 2: Vectorstore'da Bilgi Yok
-
-1. Soru gelir → Query Analysis → Vectorstore'a yönlendirilir
-2. Retrieve → Dokümanlar getirilir
-3. Grade Documents → Hiç ilgili doküman yok → Web Search tetiklenir
-4. Web Search → Web'de arama yapılır
-5. Generate → Web sonuçlarıyla cevap üretilir
-6. Kontroller → Cevap yeterliyse END
-
-### Senaryo 3: Self-Correction
-
-1. Cevap üretilir
-2. Hallucination Check → Cevap dokümanlara dayalı değil
-3. Re-write question → Soru yeniden yazılır
-4. Retrieve → Yeni dokümanlar getirilir
-5. Generate → Yeni cevap üretilir
-6. Tekrar kontrol edilir
-
-## Gereksinimler
-
-- Python 3.8+
-- OpenAI API anahtarı
-- Tavily API anahtarı (web search için)
-- Tüm bağımlılıklar `requirements.txt` dosyasında listelenmiştir
-
-## Özelleştirme
-
-### Farklı Veri Kaynakları
-
-`ingestion.py` dosyasındaki URL'leri değiştirerek farklı veri kaynakları ekleyebilirsiniz:
-
-```python
-urls = [
-    "https://your-url-1.com",
-    "https://your-url-2.com",
-    # ...
-]
-```
-
-### Chunk Ayarları
-
-Chunk size ve overlap değerlerini ayarlayabilirsiniz:
-
-```python
-text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-    chunk_size=250,  # İstediğiniz boyut
-    chunk_overlap=0   # Overlap miktarı
-)
-```
-
-### Router Ayarları
-
-`graph/chains/router.py` dosyasındaki system prompt'u düzenleyerek router'ın hangi konuları vectorstore'a yönlendireceğini belirleyebilirsiniz.
-
-## Sorun Giderme
-
-### Vectorstore Bulunamıyor
-
-Eğer vectorstore bulunamazsa, önce `ingestion.py` dosyasını çalıştırın.
-
-### Tavily API Hatası
-
-Tavily API anahtarınızın `.env` dosyasında doğru ayarlandığından emin olun.
-
-### Import Hataları
-
-Tüm bağımlılıkların yüklendiğinden emin olun:
-
-```bash
-pip install -r requirements.txt
-```
-
-## Geliştirme Notları
-
-- Her node bağımsız olarak test edilebilir
-- State yönetimi LangGraph tarafından otomatik yapılır
-- Conditional routing ile akıllı karar verme sağlanır
-- Self-correction mekanizması döngüsel iyileştirme yapar
-
-## Gelecek Geliştirmeler
-
-- Retry mekanizması eklenebilir
-- Caching mekanizması eklenebilir
-- Detaylı logging ve monitoring
-- Web arayüzü veya API endpoint'leri
-- Farklı LLM modelleri ile test
-
-## Lisans
-
-Bu proje eğitim amaçlıdır.
-
+Bu proje eğitim ve öğrenme amaçlıdır.
