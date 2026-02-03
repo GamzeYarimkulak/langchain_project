@@ -87,7 +87,7 @@ NOTLAR
 - Proje bağımsız çalışır.
 - Döngüsel yapı bounded retries ile kontrol altındadır.
 - Amaç en uzun cevabı değil, en güvenilir cevabı üretmektir.
-- Detaylı mimari anlatım Medium yazısında ele alınmıştır.
+- Detaylı mimari anlatım Medium yazısında https://medium.com/@gamzeyarimkulak/langchain-ile-sistem-odaklı-llm-uygulamaları-aa9d8b430d62  ele alınmıştır.
 
 ---
 
