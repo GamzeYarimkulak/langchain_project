@@ -1,157 +1,182 @@
-# LangChain Projeleri
+LangChain ile Sistem Odaklı LLM Projeleri
 
-Bu repository, LangChain ekosistemini öğrenmek için oluşturulmuş bir dizi proje içerir. Her proje, LangChain'in farklı özelliklerini ve kullanım senaryolarını gösterir.
+Bu repository, LangChain ve LangGraph kullanarak sistem odaklı LLM uygulamaları geliştirme sürecini adım adım ele alan bir proje koleksiyonudur. Amaç, yalnızca tekil prompt veya zincirler kurmak değil; karar veren, kendini denetleyen ve gerektiğinde geri dönebilen LLM sistemleri tasarlamayı öğrenmektir.
 
-## Proje Listesi
+Projeler, basit LangChain kullanımlarından başlayarak Corrective RAG gibi daha ileri seviye, decision-based mimarilere doğru ilerleyen bir öğrenme yolunu temsil eder.
 
-### 1. SetupProject
-LangChain ve OpenAI API kullanımı için temel ortam kurulumu. API anahtarlarının güvenli yönetimi için `python-dotenv` kullanımı.
+⭐ Featured Project — CorrectiveRAGProject
 
-**Öğrenilenler:** Ortam değişkenleri yönetimi, güvenli API anahtarı kullanımı
+Bu repository’nin merkezinde yer alan proje CorrectiveRAGProject’tir.
+Bu proje, klasik RAG yaklaşımının sınırlamalarını ele alarak kendi çıktısını denetleyebilen ve gerektiğinde kendini düzelten bir RAG sistemi kurmayı hedefler.
 
----
+Öne çıkan özellikler:
 
-### 2. LangchainFirstProject
-LangChain kütüphanesine giriş projesi. Temel bileşenlerin (LLM, Prompt, Parser) adım adım öğrenilmesi.
+Query routing (vector store vs web search)
 
-**Öğrenilenler:** 
-- ChatOpenAI modeli kullanımı
-- Output parser'lar
-- Prompt template'ler
-- LangServe ile API oluşturma
+Doküman relevance grading
 
----
+Kontrollü cevap üretimi (context-only generation)
 
-### 3. VectorStoreProject
-Vektör veritabanı kullanımının temelleri. Chroma vector store ile embedding ve semantic search.
+Self-check & corrective loop
 
-**Öğrenilenler:**
-- Embedding kavramı
-- Vector store kullanımı
-- Semantic search
+Bounded retries ile döngü kontrolü
 
----
+LangGraph ile state-based workflow
 
-### 4. VectoreStoreProject1
-VectorStoreProject'in gelişmiş versiyonu. Kalıcı vector store, retriever ve RAG pattern'inin temel uygulaması.
+📷 Çıktılar ve görseller:
+CorrectiveRAGProject/README.md
 
-**Öğrenilenler:**
-- Retriever kullanımı
-- Kalıcı vector store
-- RAG pattern'inin temelleri
-- Chain yapıları
+(Workflow grafiği, web arayüzü ve terminal çıktıları)
 
----
+Proje Listesi & Öğrenme Yolu
 
-### 5. RAGProject
-Gerçek dünya verisi ile RAG uygulaması. Web sayfasından doküman yükleme, işleme ve soru-cevap sistemi.
+Projeler, sistematik bir öğrenme akışını yansıtacak şekilde sıralanmıştır:
 
-**Öğrenilenler:**
-- Web scraping ve doküman yükleme
-- Text splitting stratejileri
-- LangChain Hub kullanımı
-- Streaming response
+1. SetupProject
 
----
+LangChain ve OpenAI API kullanımı için temel ortam kurulumu. API anahtarlarının güvenli yönetimi için python-dotenv kullanımı.
 
-### 6. MessagingHistory
-Chat uygulamalarında mesaj geçmişi yönetimi. Session bazlı konuşma takibi ve context preservation.
+Öğrenilenler:
 
-**Öğrenilenler:**
-- Chat history yönetimi
-- Session management
-- MessagesPlaceholder kullanımı
-- Context-aware chat
+Ortam değişkenleri yönetimi
 
----
+Güvenli API anahtarı kullanımı
 
-### 7. AgentProject
-ReAct agent pattern'i ile akıllı arama aracı. LangGraph kullanarak web araması yapabilen agent.
+2. LangchainFirstProject
 
-**Öğrenilenler:**
-- Agent pattern'i ve ReAct
-- LangGraph checkpoint mekanizması
-- Tool kullanımı
-- Streaming agent responses
+LangChain kütüphanesine giriş. Temel bileşenlerin (LLM, Prompt, Parser) adım adım öğrenilmesi.
 
----
+Öğrenilenler:
 
-### 8. CorrectiveRAGProject ⭐
-Gelişmiş RAG sistemi. Self-reflection mekanizması ekleyen, kendi kendini düzelten soru-cevap sistemi. Web arayüzü (React) ve demo içerir.
+ChatOpenAI modeli kullanımı
 
-**Öğrenilenler:**
-- LangGraph ile state machine
-- Conditional routing
-- Multi-step RAG
-- Self-correction pattern
-- Quality assurance katmanları
+Prompt template’ler
 
-📷 **Çıktılar ve görseller:** [CorrectiveRAGProject/README.md](CorrectiveRAGProject/README.md#çıktılar-ve-görseller) — workflow grafiği, web arayüzü ve terminal çıktıları.
+Output parser’lar
 
----
+LangServe ile API oluşturma
 
-## Proje Yapısı
+3. VectorStoreProject
 
-```
-pycharm_projects/
+Vektör veritabanı kullanımının temelleri. Chroma ile embedding ve semantic search.
+
+Öğrenilenler:
+
+Embedding kavramı
+
+Vector store kullanımı
+
+Semantic search
+
+4. VectorStoreProject1
+
+VectorStoreProject’in gelişmiş versiyonu. Kalıcı vector store ve temel RAG pattern’i.
+
+Öğrenilenler:
+
+Retriever kullanımı
+
+Kalıcı vector store
+
+RAG pattern’inin temelleri
+
+Chain yapıları
+
+5. RAGProject
+
+Gerçek dünya verisi ile RAG uygulaması. Web sayfasından doküman yükleme ve soru-cevap sistemi.
+
+Öğrenilenler:
+
+Web doküman yükleme
+
+Text splitting stratejileri
+
+LangChain Hub kullanımı
+
+Streaming response
+
+6. MessagingHistory
+
+Chat uygulamalarında mesaj geçmişi yönetimi. Session bazlı konuşma takibi.
+
+Öğrenilenler:
+
+Chat history yönetimi
+
+Session management
+
+Context-aware chat
+
+7. AgentProject
+
+ReAct agent pattern’i ile web araması yapabilen agent sistemi.
+
+Öğrenilenler:
+
+Agent pattern’i ve ReAct
+
+Tool kullanımı
+
+LangGraph checkpoint yapısı
+
+Streaming agent responses
+
+8. CorrectiveRAGProject ⭐
+
+Decision-based, self-correcting RAG sistemi. Web arayüzü (React) ve demo içerir.
+
+Öğrenilenler:
+
+LangGraph ile state machine yaklaşımı
+
+Conditional routing
+
+Multi-step RAG
+
+Self-correction & quality assurance katmanları
+
+Proje Yapısı
+projects/
 ├── SetupProject/
 ├── LangchainFirstProject/
 ├── VectorStoreProject/
-├── VectoreStoreProject1/
+├── VectorStoreProject1/
 ├── RAGProject/
 ├── MessagingHistory/
 ├── AgentProject/
 └── CorrectiveRAGProject/
-```
 
-## Genel Gereksinimler
+Genel Gereksinimler
 
-- Python 3.8 veya üzeri
-- OpenAI API anahtarı (çoğu proje için)
-- Tavily API anahtarı (AgentProject ve CorrectiveRAGProject için)
-- Her projenin kendi `requirements.txt` dosyası vardır
+Python 3.8+
 
-## Kurulum
+OpenAI API anahtarı
 
-Her proje için ayrı ayrı kurulum yapılmalıdır:
+Tavily API anahtarı (AgentProject ve CorrectiveRAGProject için)
 
-```bash
-cd [ProjeAdı]
+Her projenin kendi requirements.txt dosyası vardır
+
+Kurulum (Genel)
+cd <ProjectName>
 pip install -r requirements.txt
-```
 
-Ortam değişkenleri için `.env` dosyası oluşturun:
 
-```
-OPENAI_API_KEY=your_api_key_here
-TAVILY_API_KEY=your_tavily_api_key  # Gerekli projeler için
-```
+.env dosyası oluşturun:
 
-## Öğrenme Yolu
+OPENAI_API_KEY=your_openai_key
+TAVILY_API_KEY=your_tavily_key
 
-Projeler, öğrenme yolculuğunu yansıtacak şekilde sıralanmıştır:
+Notlar
 
-1. **SetupProject**: Temel kurulum ve ortam hazırlığı
-2. **LangchainFirstProject**: LangChain'in temel bileşenlerini öğrenme
-3. **VectorStoreProject**: Embedding ve vector store kavramları
-4. **VectoreStoreProject1**: RAG pattern'inin temelleri
-5. **RAGProject**: Gerçek dünya RAG uygulaması
-6. **MessagingHistory**: Chat uygulamaları için geçmiş yönetimi
-7. **AgentProject**: Agent pattern'i ve tool kullanımı
-8. **CorrectiveRAGProject**: Gelişmiş RAG sistemi ve self-reflection
+Her proje bağımsız olarak çalıştırılabilir
 
-## Önemli Notlar
+Projeler arası doğrudan bağımlılık yoktur
 
-- Her proje bağımsız olarak çalıştırılabilir
-- Projeler arasında bağımlılık yoktur (CorrectiveRAGProject hariç, kendi içinde tamamlanmıştır)
-- Her projenin kendi README dosyası vardır, detaylar için ilgili klasöre bakın
-- API anahtarlarınızı güvende tutun, `.env` dosyasını Git'e eklemeyin
+API anahtarlarını .env dosyasında tutun ve Git’e eklemeyin
 
-## Katkıda Bulunma
+Detaylı açıklamalar her projenin kendi README’sinde yer alır
 
-Bu projeler eğitim amaçlıdır. İyileştirme önerileri ve hata bildirimleri memnuniyetle karşılanır.
+Lisans
 
-## Lisans
-
-Bu projeler eğitim amaçlıdır.
-
+Bu repository eğitim ve öğrenme amaçlıdır.
