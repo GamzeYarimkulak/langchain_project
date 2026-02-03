@@ -1,10 +1,12 @@
-CorrectiveRAGProject
+# CorrectiveRAGProject
 
 CorrectiveRAGProject, klasik Retrieval Augmented Generation (RAG) yaklaşımının ötesine geçerek karar veren, kendini denetleyen ve gerektiğinde kendini düzelten bir soru–cevap sistemi kurmayı amaçlar.
 
 Bu projede LLM, yalnızca cevap üreten bir bileşen değil; sistemin farklı aşamalarında değerlendirme yapan bir karar mekanizması olarak kullanılır. Akış, LangGraph ile state-based bir yapı halinde modellenmiştir.
 
-Genel Bakış
+---
+
+GENEL BAKIŞ
 
 Sistem, gelen bir soruyu uçtan uca şu prensiple ele alır:
 
@@ -12,39 +14,27 @@ Sistem, gelen bir soruyu uçtan uca şu prensiple ele alır:
 
 Bu yaklaşım, lineer RAG pipeline’larının aksine kontrollü ve döngüsel bir iş akışı oluşturur.
 
-Temel Özellikler
+---
 
-Query Routing
-Soru, vector store veya web search arasında otomatik olarak yönlendirilir.
+TEMEL ÖZELLİKLER
 
-Document Relevance Grading
-Retriever’dan gelen dokümanlar, soruyla gerçekten ilgili olup olmadıklarına göre filtrelenir.
+- Query Routing: Soru, vector store veya web search arasında otomatik olarak yönlendirilir.
+- Document Relevance Grading: Retriever’dan gelen dokümanlar filtrelenir.
+- Web Search Fallback: Vector store yeterli değilse otomatik web araması yapılır.
+- Controlled Generation: LLM yalnızca verilen bağlama dayanarak cevap üretir.
+- Self-Check & Correction Loop: Üretilen cevap bağlama ve soruya uygunluk açısından kontrol edilir.
+- State-Based Workflow: Akış LangGraph ile state machine olarak modellenmiştir.
 
-Web Search Fallback
-Vector store yeterli değilse sistem otomatik olarak web aramasına yönelir.
+---
 
-Controlled Generation
-LLM yalnızca verilen bağlama dayanarak cevap üretir.
+WORKFLOW GRAFİĞİ
 
-Self-Check & Correction Loop
-Üretilen cevap:
-
-bağlama dayanıyor mu?
-
-soruyu gerçekten yanıtlıyor mu?
-sorularıyla kontrol edilir. Gerekirse sistem geri dönerek kendini düzeltir.
-
-State-Based Workflow
-Tüm akış LangGraph ile state machine olarak modellenmiştir.
-
-Workflow Grafiği
+Corrective RAG workflow diyagramı:
 ![Workflow grafiği](./graph.png)
 
-Aşağıdaki diyagram, sistemin karar odaklı akışını özetler:
+---
 
-Demo & Arayüz
-
-Projede, sistemin davranışını gözlemleyebilmek için basit bir web arayüzü de bulunmaktadır.
+DEMO & ARAYÜZ
 
 Vector store üzerinden gelen cevap örneği:
 ![Web arayüzü - belgelerden gelen cevap](./görseller/webarayüzbelgelerdengelencevap.png)
@@ -54,48 +44,53 @@ Web search fallback ile gelen cevap örneği:
 ![Web arayüzü - Tavily ile gelen cevap](./görseller/webarayüzweb-tavilydengelencevap.png)
 ![Backend çıktısı - web'den gelen cevap](./görseller/backend_kod_ciktisi_webdengelencevap.png)
 
-Hızlı Başlangıç (Quick Run)
-1. Bağımlılıkları Yükleyin
+---
+
+HIZLI BAŞLANGIÇ
+
+1. Bağımlılıkları yükleyin
+
 pip install -r requirements.txt
 
-2. Ortam Değişkenleri
-
-.env dosyası oluşturun:
+2. Ortam değişkenleri (.env)
 
 OPENAI_API_KEY=your_openai_api_key
 TAVILY_API_KEY=your_tavily_api_key
 
-3. Vector Store Oluşturma
-
-İlk çalıştırmada belge indeksini oluşturun:
+3. Vector store oluşturma
 
 python ingestion.py
 
-4. Sistemi Çalıştırma
+4. Sistemi çalıştırma
+
 python main.py
 
-Proje Yapısı
+---
+
+PROJE YAPISI
+
 CorrectiveRAGProject/
-├── main.py          # Uygulama giriş noktası
-├── ingestion.py     # Doküman yükleme ve vector store oluşturma
+├── main.py
+├── ingestion.py
 ├── graph/
-│   ├── graph.py     # LangGraph workflow tanımı
-│   ├── state.py     # State yapısı
-│   ├── nodes/       # Retrieve, generate, grade, web search adımları
-│   └── chains/      # Router ve grader chain'leri
-├── graph.png        # Workflow diyagramı
+│   ├── graph.py
+│   ├── state.py
+│   ├── nodes/
+│   └── chains/
+├── graph.png
 └── requirements.txt
 
-Notlar
+---
 
-Proje bağımsız çalışır.
+NOTLAR
 
-Döngüsel yapı bounded retries ile kontrol altındadır.
+- Proje bağımsız çalışır.
+- Döngüsel yapı bounded retries ile kontrol altındadır.
+- Amaç en uzun cevabı değil, en güvenilir cevabı üretmektir.
+- Detaylı mimari anlatım Medium yazısında ele alınmıştır.
 
-Amaç “en uzun cevabı” değil, en güvenilir cevabı üretmektir.
+---
 
-Detaylı mimari anlatım Medium yazısında ele alınmıştır.
-
-Lisans
+LİSANS
 
 Bu proje eğitim ve öğrenme amaçlıdır.
